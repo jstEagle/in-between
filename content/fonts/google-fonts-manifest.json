@@ -1,0 +1,8 @@
+[
+  { "id": "inter", "family": "Inter", "role": "modern interface" },
+  { "id": "lora", "family": "Lora", "role": "hotel editorial" },
+  { "id": "fraunces", "family": "Fraunces", "role": "luxury intrusion" },
+  { "id": "space", "family": "Space Grotesk", "role": "corporate SaaS" },
+  { "id": "mono", "family": "IBM Plex Mono", "role": "manual and dashboard residue" },
+  { "id": "nunito", "family": "Nunito", "role": "kids portal" }
+]
