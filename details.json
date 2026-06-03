@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "title": "in between space",
+  "description": "A deterministic infinite web labyrinth that generates familiar but uncanny websites where every link leads to another seeded page.",
+  "tags": [
+    "Next.js",
+    "TypeScript",
+    "Generative UI",
+    "GSAP",
+    "Tailwind CSS"
+  ],
+  "featured": true,
+  "order": 40,
+  "links": {
+    "demo": "https://in-between-two.vercel.app",
+    "repo": "https://github.com/jstEagle/in-between"
+  },
+  "images": []
+}
