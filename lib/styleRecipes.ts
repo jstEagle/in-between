@@ -182,6 +182,160 @@ export const styleRecipes: StyleRecipe[] = [
       button: `${buttonBase} border border-[var(--page-fg)] bg-[var(--page-fg)] font-semibold text-[var(--page-bg)] hover:opacity-90`,
       tag: `${tagBase} border border-[var(--page-fg)] bg-transparent uppercase`
     }
+  },
+  {
+    id: "editorial-broadsheet",
+    name: "Editorial Broadsheet",
+    density: "balanced",
+    chrome: "old-web",
+    classes: {
+      page: "",
+      shell: "shell",
+      panel: "panel border-x-0 border-t-0 border-b border-[var(--page-border)] bg-transparent shadow-none",
+      intrusionPanel: "border-l border-[var(--page-fg)] pl-3 bg-transparent font-intrusion text-[13px] italic",
+      button: `${buttonBase} border-b border-[var(--page-fg)] rounded-none bg-transparent font-medium uppercase tracking-wide hover:bg-[var(--page-fg)] hover:text-[var(--page-bg)]`,
+      tag: `${tagBase} border-0 bg-transparent px-0 uppercase tracking-[0.18em] font-accent`
+    }
+  },
+  {
+    id: "terminal-green",
+    name: "Terminal Console",
+    density: "dense",
+    chrome: "dashboard",
+    classes: {
+      page: "",
+      shell: "shell",
+      panel: "panel rounded-none border border-[var(--page-accent)]/40 bg-black/55 text-[var(--page-accent)] shadow-none font-accent",
+      intrusionPanel: "border border-dashed border-[var(--page-accent)]/60 bg-black/40 p-2 font-accent text-[12px] text-[var(--page-accent)]",
+      button: `${buttonBase} rounded-none border border-[var(--page-accent)] bg-transparent font-accent text-[var(--page-accent)] hover:bg-[var(--page-accent)] hover:text-black`,
+      tag: `${tagBase} rounded-none border border-[var(--page-accent)]/50 bg-transparent font-accent uppercase`
+    }
+  },
+  {
+    id: "swiss-international",
+    name: "Swiss International",
+    density: "sparse",
+    chrome: "modern",
+    classes: {
+      page: "",
+      shell: "shell",
+      panel: "panel rounded-none border-0 border-t-2 border-[var(--page-fg)] bg-transparent shadow-none",
+      intrusionPanel: "border-t-2 border-[var(--page-accent)] bg-transparent pt-3 font-accent text-[13px]",
+      button: `${buttonBase} rounded-none bg-[var(--page-fg)] font-medium text-[var(--page-bg)] hover:bg-[var(--page-accent)]`,
+      tag: `${tagBase} rounded-none border-0 bg-transparent px-0 font-accent uppercase tracking-[0.2em]`
+    }
+  },
+  {
+    id: "vaporwave-arcade",
+    name: "Vaporwave Arcade",
+    density: "balanced",
+    chrome: "playful",
+    classes: {
+      page: "",
+      shell: "shell",
+      panel: "panel border-[var(--page-accent2)]/40 bg-[var(--page-accent2)]/10 text-[var(--page-fg)] backdrop-blur",
+      intrusionPanel: "rounded-[var(--radius-card)] border border-[var(--page-accent)] bg-[var(--page-accent)]/12 p-3 font-accent text-[13px]",
+      button: `${buttonBase} border border-[var(--page-accent)] bg-[var(--page-accent)] font-semibold text-black shadow-[0_0_18px_var(--page-accent)] hover:brightness-110`,
+      tag: `${tagBase} border border-[var(--page-accent2)] bg-transparent uppercase tracking-[0.14em]`
+    }
+  },
+  {
+    id: "eink-reader",
+    name: "E-Ink Reader",
+    density: "sparse",
+    chrome: "modern",
+    classes: {
+      page: "",
+      shell: "shell",
+      panel: "panel border-[var(--page-border)] bg-[color-mix(in_srgb,var(--page-bg)_94%,var(--page-fg))] shadow-none",
+      intrusionPanel: "border border-[var(--page-border)] bg-transparent p-3 font-intrusion text-[13px]",
+      button: `${buttonBase} border border-[var(--page-fg)] bg-transparent font-medium hover:bg-[var(--page-fg)] hover:text-[var(--page-bg)]`,
+      tag: `${tagBase} border border-[var(--page-border)] bg-transparent`
+    }
+  },
+  {
+    id: "blueprint-tech",
+    name: "Blueprint Technical",
+    density: "balanced",
+    chrome: "dashboard",
+    classes: {
+      page: "",
+      shell: "shell",
+      panel: "panel border border-[var(--page-link)]/40 bg-[var(--page-link)]/8 font-accent text-[var(--page-fg)] shadow-none",
+      intrusionPanel: "border border-dashed border-[var(--page-link)]/60 bg-transparent p-3 font-accent text-[12px]",
+      button: `${buttonBase} rounded-none border border-[var(--page-link)] bg-transparent font-accent text-[var(--page-link)] uppercase hover:bg-[var(--page-link)] hover:text-[var(--page-bg)]`,
+      tag: `${tagBase} rounded-none border border-[var(--page-link)]/50 bg-transparent font-accent uppercase`
+    }
+  },
+  {
+    id: "fashion-magazine",
+    name: "Fashion Magazine",
+    density: "sparse",
+    chrome: "modern",
+    classes: {
+      page: "",
+      shell: "shell",
+      panel: "panel border-0 bg-transparent shadow-none",
+      intrusionPanel: "border-y border-[var(--page-fg)] bg-transparent py-4 font-intrusion text-[13px] italic",
+      button: `${buttonBase} rounded-none border border-[var(--page-fg)] bg-transparent font-light uppercase tracking-[0.28em] text-[11px] hover:bg-[var(--page-fg)] hover:text-[var(--page-bg)]`,
+      tag: `${tagBase} border-0 bg-transparent px-0 uppercase tracking-[0.28em] font-light`
+    }
+  },
+  {
+    id: "neo-memphis",
+    name: "Neo Memphis",
+    density: "balanced",
+    chrome: "playful",
+    classes: {
+      page: "",
+      shell: "shell",
+      panel: "panel border-2 border-[var(--page-fg)] bg-[var(--page-bg)] hard-shadow",
+      intrusionPanel: "rounded-[var(--radius-card)] border-2 border-[var(--page-fg)] bg-[var(--page-accent2)]/20 p-3 font-accent text-[13px]",
+      button: `${buttonBase} border-2 border-[var(--page-fg)] bg-[var(--page-accent)] font-bold text-black hard-shadow hover:translate-x-[1px] hover:translate-y-[1px]`,
+      tag: `${tagBase} rounded-[var(--radius-pill)] border-2 border-[var(--page-fg)] bg-[var(--page-accent2)]/30 font-bold`
+    }
+  },
+  {
+    id: "concrete-brutalist",
+    name: "Concrete Brutalist",
+    density: "dense",
+    chrome: "old-web",
+    classes: {
+      page: "",
+      shell: "shell",
+      panel: "panel rounded-none border border-[var(--page-fg)] bg-[color-mix(in_srgb,var(--page-bg)_92%,var(--page-fg))] shadow-none",
+      intrusionPanel: "border border-[var(--page-fg)] bg-transparent p-3 font-accent text-[12px] uppercase",
+      button: `${buttonBase} rounded-none border border-[var(--page-fg)] bg-transparent font-mono uppercase hover:bg-[var(--page-fg)] hover:text-[var(--page-bg)]`,
+      tag: `${tagBase} rounded-none border border-[var(--page-fg)] bg-transparent font-mono uppercase`
+    }
+  },
+  {
+    id: "sunset-gradient",
+    name: "Sunset Gradient",
+    density: "balanced",
+    chrome: "modern",
+    classes: {
+      page: "",
+      shell: "shell",
+      panel: "panel border-white/20 bg-[linear-gradient(135deg,color-mix(in_srgb,var(--page-accent)_16%,transparent),color-mix(in_srgb,var(--page-accent2)_16%,transparent))] backdrop-blur",
+      intrusionPanel: "rounded-[var(--radius-card)] border border-[var(--page-accent)] bg-[var(--page-accent)]/10 p-3 font-accent text-[13px]",
+      button: `${buttonBase} rounded-[var(--radius-pill)] bg-[linear-gradient(135deg,var(--page-accent),var(--page-accent2))] font-semibold text-white hover:brightness-110`,
+      tag: `${tagBase} rounded-[var(--radius-pill)] bg-white/15 text-[var(--page-fg)]`
+    }
+  },
+  {
+    id: "zine-photocopy",
+    name: "Zine Photocopy",
+    density: "dense",
+    chrome: "old-web",
+    classes: {
+      page: "",
+      shell: "shell",
+      panel: "panel rounded-none border-2 border-black bg-white text-black shadow-none",
+      intrusionPanel: "border-2 border-dashed border-black bg-white p-2 font-accent text-[12px] text-black uppercase",
+      button: `${buttonBase} rounded-none border-2 border-black bg-black font-bold uppercase text-white hover:bg-white hover:text-black`,
+      tag: `${tagBase} rounded-none border-2 border-black bg-white font-bold text-black uppercase`
+    }
   }
 ];
 

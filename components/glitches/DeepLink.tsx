@@ -1,10 +1,18 @@
+import Link from "next/link";
 import type { LinkPacket } from "@/lib/types";
 
 export function DeepLink({ link, className }: { link: LinkPacket; className?: string }) {
   return (
-    <a href={link.href} className={stableLinkClassName(className)}>
+    <Link
+      href={link.href}
+      prefetch
+      className={stableLinkClassName(className)}
+      title={link.hoverLabel}
+      data-destination-surface={link.destination.surfaceGenre}
+      data-destination-content={link.destination.contentGenre}
+    >
       {link.label}
-    </a>
+    </Link>
   );
 }
 

@@ -45,14 +45,53 @@ const intrusionFor: Record<FontCategory, FontCategory[]> = {
   pixel: ["serif", "humanist", "slab"]
 };
 
+const byId = (id: string) => fontManifest.find((f) => f.id === id) ?? fontManifest[0];
+
+// Hand-tuned type pairings (headline / body / accent). Used a good share of the
+// time so a page's typography reads as an intentional choice rather than three
+// fonts that merely don't collide. The seed still decides which pairing.
+const curatedPairings: { headline: string; primary: string; accent: string }[] = [
+  { headline: "fraunces", primary: "inter", accent: "mono" },
+  { headline: "playfair", primary: "worksans", accent: "spacemono" },
+  { headline: "dmserif", primary: "manrope", accent: "mono" },
+  { headline: "bebas", primary: "inter", accent: "mono" },
+  { headline: "oswald", primary: "lora", accent: "spacemono" },
+  { headline: "archivoblack", primary: "worksans", accent: "mono" },
+  { headline: "space", primary: "space", accent: "spacemono" },
+  { headline: "robotoslab", primary: "nunito", accent: "mono" },
+  { headline: "lora", primary: "lora", accent: "spacemono" },
+  { headline: "times", primary: "times", accent: "mono" },
+  { headline: "archivo", primary: "archivo", accent: "spacemono" },
+  { headline: "sora", primary: "sora", accent: "mono" },
+  { headline: "playfair", primary: "lora", accent: "mono" },
+  { headline: "dmserif", primary: "worksans", accent: "spacemono" },
+  { headline: "bebas", primary: "manrope", accent: "vt323" },
+  { headline: "vt323", primary: "worksans", accent: "vt323" },
+  { headline: "fraunces", primary: "manrope", accent: "spacemono" }
+];
+
+function pickIntrusion(seed: string, primary: FontDef, excludeIds: string[]) {
+  const intrusionCats = intrusionFor[primary.category];
+  const pool = fontManifest.filter((f) => intrusionCats.includes(f.category) && !excludeIds.includes(f.id));
+  const fallback = fontManifest.filter((f) => !excludeIds.includes(f.id));
+  return pick(`${seed}:font:intrusion`, pool.length ? pool : fallback);
+}
+
 export function chooseFonts(seed: string) {
+  if (createRng(`${seed}:font:mode`).bool(0.5)) {
+    const pairing = pick(`${seed}:font:pairing`, curatedPairings);
+    const primary = byId(pairing.primary);
+    const headline = byId(pairing.headline);
+    const accent = byId(pairing.accent);
+    const intrusion = pickIntrusion(seed, primary, [primary.id, headline.id, accent.id]);
+    return { primary, intrusion, accent, headline };
+  }
+
   // Primary leans readable; display/pixel/hand stay as intrusions/accents.
   const primaryPool = byCategory(["grotesk", "humanist", "serif", "slab", "display"]);
   const primary = pick(`${seed}:font:primary`, primaryPool);
 
-  const intrusionCats = intrusionFor[primary.category];
-  const intrusionPool = fontManifest.filter((f) => intrusionCats.includes(f.category) && f.id !== primary.id);
-  const intrusion = pick(`${seed}:font:intrusion`, intrusionPool.length ? intrusionPool : fontManifest.filter((f) => f.id !== primary.id));
+  const intrusion = pickIntrusion(seed, primary, [primary.id]);
 
   // accent prefers mono / pixel / hand / display — the "era-specific UI" font.
   const accentPool = byCategory(["mono", "pixel", "hand", "display"]).filter(

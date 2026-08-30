@@ -216,10 +216,22 @@ export function sectionForSurface(surface: string) {
 }
 
 function inferGenre(words: string[], seed: string, salt: string) {
-  if (words.some((word) => hotelNouns.includes(word as (typeof hotelNouns)[number]))) return "hotel availability";
+  if (words.some((word) => ["car", "cars", "auto", "autos", "vehicle", "vehicles", "garage", "dealer", "van", "vans"].includes(word))) return "automotive listings";
+  if (words.some((word) => hotelNouns.includes(word as (typeof hotelNouns)[number]) || ["room", "rooms"].includes(word))) return "hotel availability";
   if (words.some((word) => mediaNouns.includes(word as (typeof mediaNouns)[number]))) return "video streaming";
   if (words.some((word) => newsNouns.includes(word as (typeof newsNouns)[number]))) return "local news";
-  if (words.some((word) => commerceNouns.includes(word as (typeof commerceNouns)[number]))) return "digital commerce";
+  if (words.some((word) => ["project", "projects", "asset", "assets", "template", "templates", "upload", "export", "studio"].includes(word))) return "creator asset gallery";
+  if (words.some((word) => ["analytics", "metric", "metrics", "chart", "dashboard", "reporting"].includes(word))) return "analytics dashboard";
+  if (words.some((word) => ["lesson", "course", "courses", "learn", "module", "training"].includes(word))) return "course catalog";
+  if (words.some((word) => ["restaurant", "restaurants", "menu", "menus", "dinner", "cafe", "cafes", "delivery"].includes(word))) return "restaurant menu";
+  if (words.some((word) => ["home", "homes", "rental", "rentals", "apartment", "apartments", "floor", "floors"].includes(word))) return "real estate listings";
+  if (words.some((word) => ["weather", "forecast", "radar", "rain", "wind", "coastal", "alert", "alerts"].includes(word))) return "weather alert feed";
+  if (words.some((word) => ["map", "maps", "route", "routes", "place", "places", "nearby", "local"].includes(word))) return "local map search";
+  if (words.some((word) => ["job", "jobs", "apply", "company", "salary", "hiring"].includes(word))) return "job board";
+  if (words.some((word) => ["clinic", "clinics", "health", "wellness", "appointment", "appointments"].includes(word))) return "wellness appointment portal";
+  if (words.some((word) => ["auction", "auctions", "bid", "lot", "lots"].includes(word))) return "auction lots";
+  if (words.some((word) => ["thread", "threads", "forum", "forums", "board", "wiki", "reply"].includes(word))) return "forum wiki archive";
+  if (words.some((word) => commerceNouns.includes(word as (typeof commerceNouns)[number]) || ["catalog", "pricing", "price", "plan", "plans", "tier", "tiers", "shop"].includes(word))) return "digital commerce";
   return pick(`${seed}:${salt}`, [
     "real estate blog",
     "municipal announcements",

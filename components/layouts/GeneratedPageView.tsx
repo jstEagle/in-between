@@ -11,6 +11,10 @@ const textureClass: Record<GeneratedPage["design"]["texture"], string> = {
   grid: "texture-grid",
   "soft-radial": "texture-soft-radial",
   noise: "texture-noise",
+  halftone: "texture-halftone",
+  blueprint: "texture-blueprint",
+  stripes: "texture-stripes",
+  vignette: "texture-vignette",
   none: ""
 };
 

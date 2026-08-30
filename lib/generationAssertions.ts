@@ -16,9 +16,12 @@ export function assertGenerationInvariants() {
   const ctx = contextForBlock(page, "assertions");
   const home = makeLink(ctx, "brand-home", "Home");
   const item = makeLink(ctx, "post-1", "Breakfast software");
+  const nav = makeLink(ctx, "nav-4");
 
   invariant(home.href.includes(page.routeState.site.siteToken), "home links should preserve the current mini-site token");
   invariant(item.href.includes(page.routeState.site.siteToken) || item.href.includes("-exit-"), "item links should stay in-site unless they intentionally exit");
+  invariant(nav.href.startsWith(`/${nav.destination.routeSection}/`), "links should expose the same route section they describe");
+  invariant(nav.hoverLabel.includes(nav.destination.contentGenre), "link hover text should describe the destination page");
   invariant(page.layoutComposition.primary === page.layout, "layout remains compatible with the legacy primary layout field");
   invariant(page.layoutGrammar === null || Boolean(page.layoutGrammar.frame), "when present, layout grammar should carry a frame");
 

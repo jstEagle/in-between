@@ -63,14 +63,14 @@ export type ThemeTokens = {
 
 export type DesignTokens = {
   id: string;
-  radius: "sharp" | "soft" | "round" | "pill" | "mixed";
-  density: "tight" | "normal" | "roomy" | "cavernous";
-  borderStyle: "hairline" | "normal" | "chunky" | "double" | "dashed";
-  shadow: "none" | "soft" | "hard" | "glow" | "inset";
-  container: "narrow" | "normal" | "wide" | "bleed";
+  radius: "sharp" | "soft" | "round" | "pill" | "mixed" | "snub" | "bubble";
+  density: "tight" | "normal" | "roomy" | "cavernous" | "compact" | "editorial";
+  borderStyle: "hairline" | "normal" | "chunky" | "double" | "dashed" | "dotted" | "groove";
+  shadow: "none" | "soft" | "hard" | "glow" | "inset" | "layered" | "edge";
+  container: "narrow" | "normal" | "wide" | "bleed" | "slim";
   headingCase: "upper" | "none" | "lower" | "title";
   tracking: "tight" | "normal" | "wide";
-  texture: "scan" | "dots" | "grid" | "soft-radial" | "none" | "noise";
+  texture: "scan" | "dots" | "grid" | "soft-radial" | "none" | "noise" | "halftone" | "blueprint" | "stripes" | "vignette";
   heroVariant: HeroVariant;
   chromeVariant: ChromeVariant;
   /** Flat map of CSS custom properties to spread onto the page root. */
@@ -232,6 +232,14 @@ export type LinkPacket = {
   href: string;
   hoverLabel: string;
   id: string;
+  destination: {
+    routeSection: string;
+    surfaceGenre: string;
+    contentGenre: string;
+    actionGenre: string;
+    siteKind: SiteKind;
+    siteIdentity: string;
+  };
 };
 
 export type BlockPacket =

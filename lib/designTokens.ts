@@ -19,6 +19,8 @@ const radiusBundles: Record<DesignTokens["radius"], Record<string, string>> = {
   soft: { card: ".375rem", button: ".375rem", input: ".25rem", media: ".25rem", tag: ".25rem", pill: "9999px" },
   round: { card: ".9rem", button: ".7rem", input: ".55rem", media: ".7rem", tag: ".45rem", pill: "9999px" },
   pill: { card: "1.5rem", button: "9999px", input: "9999px", media: "1.1rem", tag: "9999px", pill: "9999px" },
+  snub: { card: ".2rem", button: ".15rem", input: ".15rem", media: ".1rem", tag: ".1rem", pill: "9999px" },
+  bubble: { card: "1.6rem", button: "1.4rem", input: "1.1rem", media: "1.4rem", tag: "1rem", pill: "9999px" },
   // intentionally inconsistent — uncanny
   mixed: { card: ".85rem", button: "0px", input: ".5rem", media: "0px", tag: "9999px", pill: "9999px" }
 };
@@ -27,9 +29,11 @@ const densityBundles: Record<
   DesignTokens["density"],
   { section: string; panel: string; gap: string; gapTight: string; chrome: string }
 > = {
+  compact: { section: ".75rem", panel: ".55rem", gap: ".4rem", gapTight: ".28rem", chrome: ".4rem" },
   tight: { section: "1.1rem", panel: ".7rem", gap: ".5rem", gapTight: ".35rem", chrome: ".5rem" },
   normal: { section: "1.9rem", panel: "1.05rem", gap: ".9rem", gapTight: ".6rem", chrome: ".8rem" },
   roomy: { section: "3.25rem", panel: "1.6rem", gap: "1.3rem", gapTight: ".85rem", chrome: "1.1rem" },
+  editorial: { section: "4.25rem", panel: "1.9rem", gap: "1.6rem", gapTight: "1rem", chrome: "1.3rem" },
   cavernous: { section: "5.5rem", panel: "2.3rem", gap: "2.1rem", gapTight: "1.2rem", chrome: "1.5rem" }
 };
 
@@ -38,7 +42,9 @@ const borderBundles: Record<DesignTokens["borderStyle"], { width: string; style:
   normal: { width: "1.5px", style: "solid" },
   chunky: { width: "3px", style: "solid" },
   double: { width: "4px", style: "double" },
-  dashed: { width: "2px", style: "dashed" }
+  dashed: { width: "2px", style: "dashed" },
+  dotted: { width: "2px", style: "dotted" },
+  groove: { width: "3px", style: "groove" }
 };
 
 function shadowBundle(kind: DesignTokens["shadow"]) {
@@ -69,10 +75,23 @@ function shadowBundle(kind: DesignTokens["shadow"]) {
         button: "inset 0 -2px 0 color-mix(in srgb, var(--page-border) 70%, transparent)",
         media: "inset 0 0 0 2px color-mix(in srgb, var(--page-border) 50%, transparent)"
       };
+    case "layered":
+      return {
+        panel: "0 1px 1px rgba(0,0,0,.10), 0 4px 6px rgba(0,0,0,.08), 0 12px 24px rgba(0,0,0,.07), 0 28px 56px rgba(0,0,0,.05)",
+        button: "0 1px 2px rgba(0,0,0,.16), 0 4px 10px rgba(0,0,0,.10)",
+        media: "0 6px 12px rgba(0,0,0,.10), 0 18px 40px rgba(0,0,0,.10)"
+      };
+    case "edge":
+      return {
+        panel: "0 0 0 1px color-mix(in srgb, var(--page-border) 85%, transparent)",
+        button: "0 0 0 1px color-mix(in srgb, var(--page-border) 80%, transparent)",
+        media: "0 0 0 1px color-mix(in srgb, var(--page-border) 70%, transparent)"
+      };
   }
 }
 
 const containerWidths: Record<DesignTokens["container"], string> = {
+  slim: "780px",
   narrow: "960px",
   normal: "1180px",
   wide: "1360px",
@@ -113,24 +132,36 @@ export function generateDesign(seed: string, theme: ThemeTokens, depth: number):
   const borderStyle = pick(`${seed}:dt:border`, Object.keys(borderBundles) as DesignTokens["borderStyle"][]);
 
   // glow reads as nightclub neon; keep it for dark pages, soften it on light ones.
-  let shadow = pick(`${seed}:dt:shadow`, ["none", "soft", "hard", "glow", "inset"] as DesignTokens["shadow"][]);
+  let shadow = pick(`${seed}:dt:shadow`, ["none", "soft", "hard", "glow", "inset", "layered", "edge"] as DesignTokens["shadow"][]);
   if (shadow === "glow" && theme.scheme === "light") shadow = "soft";
 
   const container = pick(`${seed}:dt:container`, Object.keys(containerWidths) as DesignTokens["container"][]);
   const headingCase = pick(`${seed}:dt:case`, ["upper", "none", "none", "lower", "title"] as DesignTokens["headingCase"][]);
   const tracking = pick(`${seed}:dt:tracking`, Object.keys(trackingValues) as DesignTokens["tracking"][]);
-  const texture = pick(`${seed}:dt:texture`, ["scan", "dots", "grid", "soft-radial", "none", "noise"] as DesignTokens["texture"][]);
+  const texture = pick(`${seed}:dt:texture`, [
+    "scan",
+    "dots",
+    "grid",
+    "soft-radial",
+    "none",
+    "none",
+    "noise",
+    "halftone",
+    "blueprint",
+    "stripes",
+    "vignette"
+  ] as DesignTokens["texture"][]);
 
   const heroVariant = pick(`${seed}:dt:hero`, heroVariants);
   const chromeVariant = pick(`${seed}:dt:chrome`, chromeVariants);
 
   const rng = createRng(`${seed}:dt:type`);
-  const baseSize = rng.int(14, 17);
+  const baseSize = rng.int(14, 18);
   // Keep display type seeded but stable; viewport-scaled type made compact
   // generated layouts feel more artificial than the real web fragments around them.
-  const heroSize = [2.6, 3.1, 3.7, 4.4][rng.int(0, 3)];
-  const h2Size = [1.55, 1.8, 2.1, 2.45][rng.int(0, 3)];
-  const leading = [1.04, 1.12, 1.22, 1.35][rng.int(0, 3)];
+  const heroSize = [2.3, 2.6, 3.1, 3.7, 4.4, 5.2, 6.2][rng.int(0, 6)];
+  const h2Size = [1.4, 1.55, 1.8, 2.1, 2.45, 2.9][rng.int(0, 5)];
+  const leading = [1.0, 1.04, 1.12, 1.22, 1.35, 1.5][rng.int(0, 5)];
 
   const radiusVals = radiusBundles[radius];
   const dens = densityBundles[density];
